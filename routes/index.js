@@ -1,24 +1,24 @@
 var express = require('express');
 var router = express.Router();
+const fs = require('fs');
+const got = require('got');
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-// get page content
-// router.get('/getcontent', function (req, res, next) {
-//   var options = {
-//     host: 'www.google.com',
-//     port: 80,
-//     path: '/index.html'
-//   };
-  
-//   http.get(options, function(res) {
-//     console.log("Got response: " + res.statusCode);
-//   }).on('error', function(e) {
-//     console.log("Got error: " + e.message);
-//   });
-// });
+// get content got
+router.get('/getstats', function (req, res, next) {
+  got('https://www.outbreak.my/stats').then(response => {
+    const dom = new JSDOM(response.body);
+    console.log(dom.window.document.querySelector('table.table').textContent);
+  }).catch(err => {
+    console.log(err);
+  });
+  res.status(200).send({'cheerio':true});
+});
 
 module.exports = router;
