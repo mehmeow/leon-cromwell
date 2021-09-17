@@ -13,6 +13,7 @@
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "got": "^11.8.2",
+    "html-table-to-json": "^1.0.0",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "jsdom": "^17.0.0",
